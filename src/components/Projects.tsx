@@ -6,6 +6,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface GitHubRepo {
   id: number;
@@ -111,85 +118,96 @@ export const Projects = () => {
           ))}
         </motion.div>
 
-        {/* Projects Grid */}
+        {/* Projects Carousel */}
         {loading ? (
           <div className="flex justify-center items-center py-20">
             <Loader2 className="h-12 w-12 animate-spin text-primary" />
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredRepos.map((repo, index) => (
-              <motion.div
-                key={repo.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ y: -8 }}
-              >
-                <Card className="h-full flex flex-col hover:shadow-glow transition-all duration-300 card-gradient border-border/50">
-                  <CardHeader>
-                    <div className="flex items-start justify-between mb-2">
-                      <CardTitle className="text-xl line-clamp-1">
-                        {repo.name}
-                      </CardTitle>
-                      {repo.language && (
-                        <Badge variant="secondary" className="ml-2 flex-shrink-0">
-                          {repo.language}
-                        </Badge>
-                      )}
-                    </div>
-                    <CardDescription className="line-clamp-2 min-h-[2.5rem]">
-                      {repo.description || "Sem descrição disponível"}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex-grow flex flex-col justify-between">
-                    {repo.topics && repo.topics.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 mb-4">
-                        {repo.topics.slice(0, 3).map((topic) => (
-                          <Badge
-                            key={topic}
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full max-w-7xl mx-auto"
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {filteredRepos.map((repo, index) => (
+                <CarouselItem key={repo.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    className="h-full"
+                  >
+                    <Card className="h-full flex flex-col hover:shadow-glow transition-all duration-300 card-gradient border-border/50">
+                      <CardHeader>
+                        <div className="flex items-start justify-between mb-2">
+                          <CardTitle className="text-xl line-clamp-1">
+                            {repo.name}
+                          </CardTitle>
+                          {repo.language && (
+                            <Badge variant="secondary" className="ml-2 flex-shrink-0">
+                              {repo.language}
+                            </Badge>
+                          )}
+                        </div>
+                        <CardDescription className="line-clamp-2 min-h-[2.5rem]">
+                          {repo.description || "Sem descrição disponível"}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="flex-grow flex flex-col justify-between">
+                        {repo.topics && repo.topics.length > 0 && (
+                          <div className="flex flex-wrap gap-1.5 mb-4">
+                            {repo.topics.slice(0, 3).map((topic) => (
+                              <Badge
+                                key={topic}
+                                variant="outline"
+                                className="text-xs"
+                              >
+                                {topic}
+                              </Badge>
+                            ))}
+                          </div>
+                        )}
+                        <div className="flex gap-2">
+                          <Button
                             variant="outline"
-                            className="text-xs"
+                            size="sm"
+                            className="flex-1"
+                            asChild
                           >
-                            {topic}
-                          </Badge>
-                        ))}
-                      </div>
-                    )}
-                    <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="flex-1"
-                        asChild
-                      >
-                        <a
-                          href={repo.html_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Github className="h-4 w-4 mr-2" />
-                          Código
-                        </a>
-                      </Button>
-                      {repo.homepage && (
-                        <Button size="sm" className="flex-1" asChild>
-                          <a
-                            href={repo.homepage}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <ExternalLink className="h-4 w-4 mr-2" />
-                            Demo
-                          </a>
-                        </Button>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+                            <a
+                              href={repo.html_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <Github className="h-4 w-4 mr-2" />
+                              Código
+                            </a>
+                          </Button>
+                          {repo.homepage && (
+                            <Button size="sm" className="flex-1" asChild>
+                              <a
+                                href={repo.homepage}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <ExternalLink className="h-4 w-4 mr-2" />
+                                Demo
+                              </a>
+                            </Button>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden md:flex" />
+            <CarouselNext className="hidden md:flex" />
+          </Carousel>
         )}
 
         {!loading && filteredRepos.length === 0 && (
