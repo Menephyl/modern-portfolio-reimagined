@@ -1,4 +1,4 @@
-import { Github, Linkedin, Instagram, Mail, Heart } from "lucide-react";
+import { Github, Linkedin, Instagram, Mail, Heart, Youtube, Facebook } from "lucide-react";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -11,17 +11,27 @@ export const Footer = () => {
     },
     {
       icon: Linkedin,
-      href: "https://www.linkedin.com/in/menephyl/",
+      href: "https://www.linkedin.com/in/yanisonelpereira",
       label: "LinkedIn",
     },
     {
       icon: Instagram,
-      href: "https://instagram.com/yanxmenephyl",
+      href: "https://www.instagram.com/yan_menephyl_works",
       label: "Instagram",
     },
     {
+      icon: Youtube,
+      href: "https://www.youtube.com/@menephyDev",
+      label: "YouTube",
+    },
+    {
+      icon: Facebook,
+      href: "https://www.facebook.com/menephyl.settings",
+      label: "Facebook",
+    },
+    {
       icon: Mail,
-      href: "mailto:contato@example.com",
+      href: "mailto:contato@yanmenephyl.dev",
       label: "Email",
     },
   ];

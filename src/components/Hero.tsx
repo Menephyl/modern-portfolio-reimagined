@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
-import { Github, Linkedin, Instagram, Mail } from "lucide-react";
+import { ArrowRight, Download, Github, Linkedin, Instagram, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ParticlesBackground } from "./ParticlesBackground";
+import profileImg from "@/assets/profile.jpg";
 
 export const Hero = () => {
   const socialLinks = [
@@ -28,6 +30,9 @@ export const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+      {/* Particles Background */}
+      <ParticlesBackground />
+      
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
       
@@ -115,6 +120,7 @@ export const Hero = () => {
                 }}
               >
                 Ver Projetos
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button
                 size="lg"
@@ -125,6 +131,7 @@ export const Hero = () => {
                 }}
               >
                 Entre em Contato
+                <Mail className="ml-2 h-5 w-5" />
               </Button>
             </motion.div>
 
@@ -182,9 +189,11 @@ export const Hero = () => {
                 whileHover={{ scale: 1.05 }}
                 className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl"
               >
-                <div className="w-full h-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                  <div className="text-8xl">👨‍💻</div>
-                </div>
+                <img
+                  src={profileImg}
+                  alt="Yan Menephyl - Desenvolvedor Full-Stack"
+                  className="w-full h-full object-cover"
+                />
               </motion.div>
             </div>
           </motion.div>
